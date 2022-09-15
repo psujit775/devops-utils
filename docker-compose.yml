@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#clean all docker container logs without restarting them.
+
+sudo truncate -s 0 /var/lib/docker/containers/*/*-json.log
+
+#clean log of specific conatiner
+
+sudo truncate -s 0 $(sudo docker inspect --format='{{.LogPath}}' <container_name_or_id>)
+
