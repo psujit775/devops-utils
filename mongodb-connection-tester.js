@@ -14,6 +14,12 @@ async function listDatabases(client){
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 };
 
+async function serverInfo(client){
+  versionInfo = await client.db().admin().serverInfo();
+  console.log(versionInfo);
+
+};
+
 async function main(){
     /**
      * Connection URI. Update <username>, <password>, <ip>, <port> and <dbName> to reflect your cluster.
@@ -29,9 +35,16 @@ async function main(){
     try {
         // Connect to the MongoDB cluster
         await client.connect();
+
+        // Getting server info
+        await serverInfo(client);
+
+        console.log("================================")
  
-        // Make the appropriate DB calls
+        // Getting DB lists
         await  listDatabases(client);
+
+
  
     } catch (e) {
         console.error(e);
